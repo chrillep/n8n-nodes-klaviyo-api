@@ -1,19 +1,29 @@
 {
-	"name": "n8n-nodes-<...>",
+	"name": "n8n-nodes-klaviyo-api",
 	"version": "0.1.0",
-	"description": "",
+	"description": "n8n community node for Klaviyo marketing automation API - manage profiles, lists, segments, campaigns, events, and more",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://github.com/chrillep/n8n-nodes-klaviyo-api#readme",
 	"keywords": [
-		"n8n-community-node-package"
+		"n8n-community-node-package",
+		"klaviyo",
+		"marketing",
+		"email-marketing",
+		"automation",
+		"crm",
+		"profiles",
+		"campaigns",
+		"lists",
+		"segments",
+		"events"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Christian Widlund",
+		"email": "christian.widlund@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/<...>/n8n-nodes-<...>.git"
+		"url": "https://github.com/chrillep/n8n-nodes-klaviyo-api.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",
