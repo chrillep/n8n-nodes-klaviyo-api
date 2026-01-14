@@ -1,1 +1,0 @@
-export { klaviyoApiRequest } from './klaviyoApiRequest';
