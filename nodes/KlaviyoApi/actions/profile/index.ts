@@ -1,25 +1,25 @@
 import type { INodeProperties } from 'n8n-workflow';
-import * as create from './create.operation';
-import * as createOrUpdate from './createOrUpdate.operation';
-import * as get from './get.operation';
-import * as getMany from './getMany.operation';
-import * as update from './update.operation';
-import * as subscribe from './subscribe.operation';
-import * as unsubscribe from './unsubscribe.operation';
-import * as suppress from './suppress.operation';
-import * as unsuppress from './unsuppress.operation';
+import {
+	getEmailProperty,
+	getFirstNameProperty,
+	getLastNameProperty,
+	getPhoneNumberProperty,
+	getPropertiesProperty,
+	getProfileIdProperty,
+	getListIdProperty,
+} from '../../shared/descriptions';
 
-export const description: INodeProperties[] = [
+const showOnlyForProfile = {
+	resource: ['profile'],
+};
+
+export const profileDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['profile'],
-			},
-		},
+		displayOptions: { show: showOnlyForProfile },
 		options: [
 			{
 				name: 'Create',
@@ -78,25 +78,45 @@ export const description: INodeProperties[] = [
 		],
 		default: 'get',
 	},
-	...create.description,
-	...createOrUpdate.description,
-	...get.description,
-	...getMany.description,
-	...update.description,
-	...subscribe.description,
-	...unsubscribe.description,
-	...suppress.description,
-	...unsuppress.description,
+	{
+		...getProfileIdProperty(),
+		displayOptions: {
+			show: {
+				resource: ['profile'],
+				operation: ['get', 'update', 'subscribe', 'suppress', 'unsubscribe', 'unsuppress'],
+			},
+		},
+	},
+	{
+		...getEmailProperty(),
+		displayOptions: {
+			show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+		},
+	},
+	{
+		...getFirstNameProperty(),
+		displayOptions: {
+			show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+		},
+	},
+	{
+		...getLastNameProperty(),
+		displayOptions: {
+			show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+		},
+	},
+	{
+		...getPhoneNumberProperty(),
+		displayOptions: { show: { resource: ['profile'], operation: ['create'] } },
+	},
+	{
+		...getPropertiesProperty(),
+		displayOptions: {
+			show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+		},
+	},
+	{
+		...getListIdProperty(),
+		displayOptions: { show: { resource: ['profile'], operation: ['subscribe', 'unsubscribe'] } },
+	},
 ];
-
-export const operations = {
-	create,
-	createOrUpdate,
-	get,
-	getMany,
-	update,
-	subscribe,
-	unsubscribe,
-	suppress,
-	unsuppress,
-};

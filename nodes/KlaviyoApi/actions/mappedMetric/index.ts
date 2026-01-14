@@ -4,7 +4,7 @@ const showOnlyForMappedMetric = {
 	resource: ['mappedMetric'],
 };
 
-export const description: INodeProperties[] = [
+export const mappedMetricDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 const showOnlyForCustomMetric = {
 	resource: ['customMetric'],
 };
-export const description: INodeProperties[] = [
+export const customMetricDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

@@ -4,7 +4,7 @@ const showOnlyForImage = {
 	resource: ['image'],
 };
 
-export const description: INodeProperties[] = [
+export const imageDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

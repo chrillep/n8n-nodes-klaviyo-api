@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 const showOnlyForTemplate = {
 	resource: ['template'],
 };
-export const description: INodeProperties[] = [
+export const templateDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

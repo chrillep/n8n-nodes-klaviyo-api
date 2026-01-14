@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 const showOnlyForSegment = {
 	resource: ['segment'],
 };
-export const description: INodeProperties[] = [
+export const segmentDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

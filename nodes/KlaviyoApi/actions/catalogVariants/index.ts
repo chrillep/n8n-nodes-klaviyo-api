@@ -4,7 +4,7 @@ const showOnlyForCatalogVariants = {
 	resource: ['catalogVariants'],
 };
 
-export const description: INodeProperties[] = [
+export const catalogVariantsDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

@@ -4,7 +4,7 @@ const showOnlyForCatalogItems = {
 	resource: ['catalogItems'],
 };
 
-export const description: INodeProperties[] = [
+export const catalogItemsDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

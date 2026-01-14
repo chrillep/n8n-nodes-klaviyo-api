@@ -8,31 +8,53 @@ import type {
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 // Import resource descriptions
-import * as account from './actions/account';
-import * as campaign from './actions/campaign';
-import * as catalogCategories from './actions/catalogCategories';
-import * as catalogItems from './actions/catalogItems';
-import * as catalogVariants from './actions/catalogVariants';
-import * as coupon from './actions/coupon';
-import * as couponCode from './actions/couponCode';
-import * as customMetric from './actions/customMetric';
-import * as event from './actions/event';
-import * as flow from './actions/flow';
-import * as flowAction from './actions/flowAction';
-import * as flowMessage from './actions/flowMessage';
-import * as form from './actions/form';
-import * as formVersion from './actions/formVersion';
-import * as image from './actions/image';
-import * as list from './actions/list';
-import * as mappedMetric from './actions/mappedMetric';
-import * as metric from './actions/metric';
-import * as profile from './actions/profile';
-import * as review from './actions/review';
-import * as segment from './actions/segment';
-import * as tag from './actions/tag';
-import * as template from './actions/template';
+import { accountDescription } from './resources/account';
+import { campaignDescription } from './resources/campaign';
+import { catalogCategoriesDescription } from './resources/catalogCategories';
+import { catalogItemsDescription } from './resources/catalogItems';
+import { catalogVariantsDescription } from './resources/catalogVariants';
+import { couponDescription } from './resources/coupon';
+import { couponCodeDescription } from './resources/couponCode';
+import { customMetricDescription } from './resources/customMetric';
+import { eventDescription } from './resources/event';
+import { flowDescription } from './resources/flow';
+import { flowActionDescription } from './resources/flowAction';
+import { flowMessageDescription } from './resources/flowMessage';
+import { formDescription } from './resources/form';
+import { formVersionDescription } from './resources/formVersion';
+import { imageDescription } from './resources/image';
+import { listDescription } from './resources/list';
+import { mappedMetricDescription } from './resources/mappedMetric';
+import { metricDescription } from './resources/metric';
+import { profileDescription } from './resources/profile';
+import { reviewDescription } from './resources/review';
+import { segmentDescription } from './resources/segment';
+import { tagDescription } from './resources/tag';
+import { templateDescription } from './resources/template';
 
-import { klaviyoApiRequest } from './transport';
+import {
+	getIdProperty,
+	getReturnAllProperty,
+	getLimitProperty,
+	getFilterProperty,
+	getEmailProperty,
+	getFirstNameProperty,
+	getLastNameProperty,
+	getPhoneNumberProperty,
+	getPropertiesProperty,
+	getProfileIdProperty,
+	getListIdProperty,
+	getCampaignIdProperty,
+	getSegmentIdProperty,
+	getEventIdProperty,
+	getFlowIdProperty,
+	getTemplateIdProperty,
+	getCouponIdProperty,
+	getImageIdProperty,
+	getMetricIdProperty,
+} from './shared/descriptions';
+
+import { klaviyoApiRequest } from './shared/transport';
 
 export class KlaviyoApi implements INodeType {
 	description: INodeTypeDescription = {

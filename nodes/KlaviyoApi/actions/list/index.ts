@@ -5,7 +5,7 @@ const showOnlyForList = {
 	resource: ['list'],
 };
 
-export const description: INodeProperties[] = [
+export const listDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

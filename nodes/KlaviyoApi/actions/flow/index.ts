@@ -4,7 +4,7 @@ const showOnlyForFlow = {
 	resource: ['flow'],
 };
 
-export const description: INodeProperties[] = [
+export const flowDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

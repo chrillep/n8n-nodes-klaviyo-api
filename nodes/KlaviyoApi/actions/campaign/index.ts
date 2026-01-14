@@ -5,7 +5,7 @@ const showOnlyForCampaign = {
 	resource: ['campaign'],
 };
 
-export const description: INodeProperties[] = [
+export const campaignDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

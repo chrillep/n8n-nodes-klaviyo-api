@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 const showOnlyForFlowMessage = {
 	resource: ['flowMessage'],
 };
-export const description: INodeProperties[] = [
+export const flowMessageDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

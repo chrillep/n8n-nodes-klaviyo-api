@@ -2,7 +2,7 @@ import type { INodeProperties } from 'n8n-workflow';
 const showOnlyForForm = {
 	resource: ['form'],
 };
-export const description: INodeProperties[] = [
+export const formDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
