@@ -4,7 +4,7 @@ const showOnlyForReview = {
 	resource: ['review'],
 };
 
-export const reviewDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

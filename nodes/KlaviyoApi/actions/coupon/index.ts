@@ -4,7 +4,7 @@ const showOnlyForCoupon = {
 	resource: ['coupon'],
 };
 
-export const couponDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

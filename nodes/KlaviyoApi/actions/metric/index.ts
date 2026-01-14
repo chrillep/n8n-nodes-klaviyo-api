@@ -4,7 +4,7 @@ const showOnlyForMetric = {
 	resource: ['metric'],
 };
 
-export const metricDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

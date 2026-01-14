@@ -5,7 +5,7 @@ const showOnlyForEvent = {
 	resource: ['event'],
 };
 
-export const eventDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

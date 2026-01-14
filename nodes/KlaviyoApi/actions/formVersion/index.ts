@@ -4,7 +4,7 @@ const showOnlyForFormVersion = {
 	resource: ['formVersion'],
 };
 
-export const formVersionDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

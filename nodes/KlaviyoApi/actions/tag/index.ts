@@ -4,7 +4,7 @@ const showOnlyForTag = {
 	resource: ['tag'],
 };
 
-export const tagDescription: INodeProperties[] = [
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',

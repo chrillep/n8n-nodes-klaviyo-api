@@ -1,0 +1,24 @@
+// Export all resource modules
+export * as account from './account';
+export * as profile from './profile';
+export * as campaign from './campaign';
+export * as catalogCategories from './catalogCategories';
+export * as catalogItems from './catalogItems';
+export * as catalogVariants from './catalogVariants';
+export * as coupon from './coupon';
+export * as couponCode from './couponCode';
+export * as customMetric from './customMetric';
+export * as event from './event';
+export * as flow from './flow';
+export * as flowAction from './flowAction';
+export * as flowMessage from './flowMessage';
+export * as form from './form';
+export * as formVersion from './formVersion';
+export * as image from './image';
+export * as list from './list';
+export * as mappedMetric from './mappedMetric';
+export * as metric from './metric';
+export * as review from './review';
+export * as segment from './segment';
+export * as tag from './tag';
+export * as template from './template';
