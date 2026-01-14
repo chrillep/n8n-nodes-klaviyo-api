@@ -1,15 +1,18 @@
 import type { INodeProperties } from 'n8n-workflow';
-import { getIdProperty } from '../../shared/descriptions';
-const showOnlyForAccount = {
-	resource: ['account'],
-};
-export const accountDescription: INodeProperties[] = [
+import * as get from './get.operation';
+import * as getMany from './getMany.operation';
+
+export const description: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: { show: showOnlyForAccount },
+		displayOptions: {
+			show: {
+				resource: ['account'],
+			},
+		},
 		options: [
 			{
 				name: 'Get',
@@ -26,8 +29,11 @@ export const accountDescription: INodeProperties[] = [
 		],
 		default: 'get',
 	},
-	{
-		...getIdProperty('Account'),
-		displayOptions: { show: { resource: ['account'], operation: ['get'] } },
-	},
+	...get.description,
+	...getMany.description,
 ];
+
+export const operations = {
+	get,
+	getMany,
+};
