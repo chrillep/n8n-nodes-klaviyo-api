@@ -61,13 +61,21 @@ export class KlaviyoApi implements INodeType {
 				options: [
 					{ name: 'Account', value: 'account' },
 					{ name: 'Campaign', value: 'campaign' },
+					{ name: 'Catalog Category', value: 'catalogCategories' },
+					{ name: 'Catalog Item', value: 'catalogItems' },
+					{ name: 'Catalog Variant', value: 'catalogVariants' },
 					{ name: 'Coupon', value: 'coupon' },
 					{ name: 'Coupon Code', value: 'couponCode' },
+					{ name: 'Custom Metric', value: 'customMetric' },
 					{ name: 'Event', value: 'event' },
 					{ name: 'Flow', value: 'flow' },
+					{ name: 'Flow Action', value: 'flowAction' },
+					{ name: 'Flow Message', value: 'flowMessage' },
 					{ name: 'Form', value: 'form' },
+					{ name: 'Form Version', value: 'formVersion' },
 					{ name: 'Image', value: 'image' },
 					{ name: 'List', value: 'list' },
+					{ name: 'Mapped Metric', value: 'mappedMetric' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Profile', value: 'profile' },
 					{ name: 'Review', value: 'review' },
@@ -794,34 +802,50 @@ export class KlaviyoApi implements INodeType {
 		switch (resource) {
 			case 'account':
 				return this.handleAccount(itemIndex, operation);
-			case 'profile':
-				return this.handleProfile(itemIndex, operation);
-			case 'list':
-				return this.handleList(itemIndex, operation);
+			case 'catalogCategories':
+				return this.handleCatalogCategories(itemIndex, operation);
+			case 'catalogItems':
+				return this.handleCatalogItems(itemIndex, operation);
+			case 'catalogVariants':
+				return this.handleCatalogVariants(itemIndex, operation);
 			case 'campaign':
 				return this.handleCampaign(itemIndex, operation);
-			case 'event':
-				return this.handleEvent(itemIndex, operation);
-			case 'segment':
-				return this.handleSegment(itemIndex, operation);
-			case 'flow':
-				return this.handleFlow(itemIndex, operation);
-			case 'template':
-				return this.handleTemplate(itemIndex, operation);
 			case 'coupon':
 				return this.handleCoupon(itemIndex, operation);
 			case 'couponCode':
 				return this.handleCouponCode(itemIndex, operation);
+			case 'customMetric':
+				return this.handleCustomMetric(itemIndex, operation);
+			case 'event':
+				return this.handleEvent(itemIndex, operation);
+			case 'flow':
+				return this.handleFlow(itemIndex, operation);
+			case 'flowAction':
+				return this.handleFlowAction(itemIndex, operation);
+			case 'flowMessage':
+				return this.handleFlowMessage(itemIndex, operation);
 			case 'form':
 				return this.handleForm(itemIndex, operation);
-			case 'review':
-				return this.handleReview(itemIndex, operation);
+			case 'formVersion':
+				return this.handleFormVersion(itemIndex, operation);
 			case 'image':
 				return this.handleImage(itemIndex, operation);
+			case 'list':
+				return this.handleList(itemIndex, operation);
+			case 'mappedMetric':
+				return this.handleMappedMetric(itemIndex, operation);
 			case 'metric':
 				return this.handleMetric(itemIndex, operation);
+			case 'profile':
+				return this.handleProfile(itemIndex, operation);
+			case 'review':
+				return this.handleReview(itemIndex, operation);
+			case 'segment':
+				return this.handleSegment(itemIndex, operation);
 			case 'tag':
 				return this.handleTag(itemIndex, operation);
+			case 'template':
+				return this.handleTemplate(itemIndex, operation);
 			default:
 				throw new NodeOperationError(this.getNode(), `Unknown resource: ${resource}`);
 		}
@@ -1524,6 +1548,345 @@ export class KlaviyoApi implements INodeType {
 			const status = this.getNodeParameter('status', itemIndex) as string;
 			const body = { data: { type: 'review', id: reviewId, attributes: { status } } };
 			return await klaviyoApiRequest.call(this, 'PATCH', `/api/reviews/${reviewId}`, body);
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleCatalogCategories(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const categoryName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'category',
+					attributes: {
+						name: categoryName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/catalog/categories', body);
+		}
+		if (operation === 'delete') {
+			const categoryId = this.getNodeParameter('id', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/catalog/categories/${categoryId}`);
+			return {};
+		}
+		if (operation === 'get') {
+			const categoryId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/catalog/categories/${categoryId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/catalog/categories',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		if (operation === 'update') {
+			const categoryId = this.getNodeParameter('id', itemIndex) as string;
+			const categoryName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'category',
+					id: categoryId,
+					attributes: {
+						name: categoryName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'PATCH',
+				`/api/catalog/categories/${categoryId}`,
+				body,
+			);
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleCatalogItems(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const itemName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'item',
+					attributes: {
+						name: itemName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/catalog/items', body);
+		}
+		if (operation === 'delete') {
+			const itemId = this.getNodeParameter('id', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/catalog/items/${itemId}`);
+			return {};
+		}
+		if (operation === 'get') {
+			const itemId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/catalog/items/${itemId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/catalog/items',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		if (operation === 'update') {
+			const itemId = this.getNodeParameter('id', itemIndex) as string;
+			const itemName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'item',
+					id: itemId,
+					attributes: {
+						name: itemName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'PATCH', `/api/catalog/items/${itemId}`, body);
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleCatalogVariants(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const variantName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'variant',
+					attributes: {
+						name: variantName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/catalog/variants', body);
+		}
+		if (operation === 'delete') {
+			const variantId = this.getNodeParameter('id', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/catalog/variants/${variantId}`);
+			return {};
+		}
+		if (operation === 'get') {
+			const variantId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/catalog/variants/${variantId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/catalog/variants',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		if (operation === 'update') {
+			const variantId = this.getNodeParameter('id', itemIndex) as string;
+			const variantName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'variant',
+					id: variantId,
+					attributes: {
+						name: variantName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'PATCH',
+				`/api/catalog/variants/${variantId}`,
+				body,
+			);
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleCustomMetric(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const metricName = this.getNodeParameter('name', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'custom-metric',
+					attributes: {
+						name: metricName,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/custom-metrics', body);
+		}
+		if (operation === 'get') {
+			const metricId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/custom-metrics/${metricId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/custom-metrics',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleFlowAction(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const actionId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/flow-actions/${actionId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/flow-actions',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleFlowMessage(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const messageId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/flow-messages/${messageId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/flow-messages',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleFormVersion(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const versionId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/form-versions/${versionId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/form-versions',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleMappedMetric(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const metricId = this.getNodeParameter('id', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/mapped-metrics/${metricId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/mapped-metrics',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
 		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
