@@ -45,8 +45,7 @@ export const getFilterProperty = (): INodeProperties => ({
 	name: 'filter',
 	type: 'string',
 	default: '',
-	description:
-		'Filter expression (Klaviyo syntax). Example: greater_than(created, 2025-01-01T00:00:00Z).',
+	description: 'Filter expression (Klaviyo syntax). Example: greater_than(created, 2025-01-01T00:00:00Z).',
 });
 
 export const getIncludeProperty = (options: string[]): INodeProperties => ({
@@ -109,152 +108,93 @@ export const getPropertiesProperty = (): INodeProperties => ({
 	},
 });
 
-export const getProfileIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getProfileIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Profile ID',
 	name: 'profileId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the profile (UUID or email)',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getListIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getListIdProperty = (required = true): INodeProperties => ({
 	displayName: 'List ID',
 	name: 'listId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the list',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getCampaignIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getCampaignIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Campaign ID',
 	name: 'campaignId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the campaign',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getSegmentIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getSegmentIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Segment ID',
 	name: 'segmentId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the segment',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getEventIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getEventIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Event ID',
 	name: 'eventId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the event',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getFlowIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getFlowIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Flow ID',
 	name: 'flowId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the flow',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getTemplateIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getTemplateIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Template ID',
 	name: 'templateId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the template',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getCouponIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getCouponIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Coupon ID',
 	name: 'couponId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the coupon',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getImageIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getImageIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Image ID',
 	name: 'imageId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the image',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
 
-export const getMetricIdProperty = (
-	required = true,
-	resources?: string[],
-	operations?: string[],
-): INodeProperties => ({
+export const getMetricIdProperty = (required = true): INodeProperties => ({
 	displayName: 'Metric ID',
 	name: 'metricId',
 	type: 'string',
 	required,
 	default: '',
 	description: 'The unique ID of the metric',
-	displayOptions:
-		resources && operations ? { show: { resource: resources, operation: operations } } : undefined,
 });
+
