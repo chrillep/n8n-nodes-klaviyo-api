@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-klaviyo-api",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for Klaviyo marketing automation API - manage profiles, lists, segments, campaigns, events, and more",
 	"license": "MIT",
 	"homepage": "https://github.com/chrillep/n8n-nodes-klaviyo-api#readme",
@@ -44,7 +44,7 @@
 			"dist/credentials/KlaviyoApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/Klaviyo/Klaviyo.node.js"
+			"dist/nodes/KlaviyoApi/KlaviyoApi.node.js"
 		]
 	},
 	"devDependencies": {
