@@ -7,6 +7,31 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
+// Import resource descriptions
+import { accountDescription } from './resources/account';
+import { campaignDescription } from './resources/campaign';
+import { catalogCategoriesDescription } from './resources/catalogCategories';
+import { catalogItemsDescription } from './resources/catalogItems';
+import { catalogVariantsDescription } from './resources/catalogVariants';
+import { couponDescription } from './resources/coupon';
+import { couponCodeDescription } from './resources/couponCode';
+import { customMetricDescription } from './resources/customMetric';
+import { eventDescription } from './resources/event';
+import { flowDescription } from './resources/flow';
+import { flowActionDescription } from './resources/flowAction';
+import { flowMessageDescription } from './resources/flowMessage';
+import { formDescription } from './resources/form';
+import { formVersionDescription } from './resources/formVersion';
+import { imageDescription } from './resources/image';
+import { listDescription } from './resources/list';
+import { mappedMetricDescription } from './resources/mappedMetric';
+import { metricDescription } from './resources/metric';
+import { profileDescription } from './resources/profile';
+import { reviewDescription } from './resources/review';
+import { segmentDescription } from './resources/segment';
+import { tagDescription } from './resources/tag';
+import { templateDescription } from './resources/template';
+
 import {
 	getIdProperty,
 	getReturnAllProperty,
@@ -86,527 +111,181 @@ export class KlaviyoApi implements INodeType {
 				default: 'profile',
 			},
 
-			// Account operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['account'] } },
-				options: [
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get account information',
-						action: 'Get account',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get all accounts',
-						action: 'Get many accounts',
-					},
-				],
-				default: 'get',
-			},
+			// Spread all resource descriptions
+			...accountDescription,
+			...campaignDescription,
+			...catalogCategoriesDescription,
+			...catalogItemsDescription,
+			...catalogVariantsDescription,
+			...couponDescription,
+			...couponCodeDescription,
+			...customMetricDescription,
+			...eventDescription,
+			...flowDescription,
+			...flowActionDescription,
+			...flowMessageDescription,
+			...formDescription,
+			...formVersionDescription,
+			...imageDescription,
+			...listDescription,
+			...mappedMetricDescription,
+			...metricDescription,
+			...profileDescription,
+			...reviewDescription,
+			...segmentDescription,
+			...tagDescription,
+			...templateDescription,
 
-			// Profile operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['profile'] } },
-				options: [
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new profile',
-						action: 'Create a profile',
-					},
-					{
-						name: 'Create or Update',
-						value: 'createOrUpdate',
-						description: 'Create or update a profile',
-						action: 'Create or update a profile',
-					},
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get a profile by ID',
-						action: 'Get a profile',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple profiles',
-						action: 'Get many profiles',
-					},
-					{
-						name: 'Subscribe',
-						value: 'subscribe',
-						description: 'Subscribe profiles to a list',
-						action: 'Subscribe profiles to a list',
-					},
-					{
-						name: 'Suppress',
-						value: 'suppress',
-						description: 'Suppress profiles from email marketing',
-						action: 'Suppress profiles',
-					},
-					{
-						name: 'Unsubscribe',
-						value: 'unsubscribe',
-						description: 'Unsubscribe profiles from marketing',
-						action: 'Unsubscribe profiles',
-					},
-					{
-						name: 'Unsuppress',
-						value: 'unsuppress',
-						description: 'Unsuppress profiles',
-						action: 'Unsuppress profiles',
-					},
-					{
-						name: 'Update',
-						value: 'update',
-						description: 'Update a profile',
-						action: 'Update a profile',
-					},
-				],
-				default: 'get',
-			},
-
-			// List operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['list'] } },
-				options: [
-					{
-						name: 'Add Profiles',
-						value: 'addProfiles',
-						description: 'Add profiles to a list',
-						action: 'Add profiles to a list',
-					},
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new list',
-						action: 'Create a list',
-					},
-					{
-						name: 'Delete',
-						value: 'delete',
-						description: 'Delete a list',
-						action: 'Delete a list',
-					},
-					{ name: 'Get', value: 'get', description: 'Get a list by ID', action: 'Get a list' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple lists',
-						action: 'Get many lists',
-					},
-					{
-						name: 'Get Profiles',
-						value: 'getProfiles',
-						description: 'Get profiles in a list',
-						action: 'Get profiles in a list',
-					},
-					{
-						name: 'Remove Profiles',
-						value: 'removeProfiles',
-						description: 'Remove profiles from a list',
-						action: 'Remove profiles from a list',
-					},
-					{
-						name: 'Update',
-						value: 'update',
-						description: 'Update a list',
-						action: 'Update a list',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Campaign operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['campaign'] } },
-				options: [
-					{
-						name: 'Clone',
-						value: 'clone',
-						description: 'Clone an existing campaign',
-						action: 'Clone a campaign',
-					},
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new campaign',
-						action: 'Create a campaign',
-					},
-					{
-						name: 'Delete',
-						value: 'delete',
-						description: 'Delete a campaign',
-						action: 'Delete a campaign',
-					},
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get a campaign by ID',
-						action: 'Get a campaign',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple campaigns',
-						action: 'Get many campaigns',
-					},
-					{
-						name: 'Send',
-						value: 'send',
-						description: 'Send a campaign',
-						action: 'Send a campaign',
-					},
-					{
-						name: 'Update',
-						value: 'update',
-						description: 'Update a campaign',
-						action: 'Update a campaign',
-					},
-				],
-				default: 'get',
-			},
-
-			// Event operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['event'] } },
-				options: [
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create/track an event',
-						action: 'Create an event',
-					},
-					{ name: 'Get', value: 'get', description: 'Get an event by ID', action: 'Get an event' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple events',
-						action: 'Get many events',
-					},
-				],
-				default: 'create',
-			},
-
-			// Segment operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['segment'] } },
-				options: [
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get a segment by ID',
-						action: 'Get a segment',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple segments',
-						action: 'Get many segments',
-					},
-					{
-						name: 'Get Profiles',
-						value: 'getProfiles',
-						description: 'Get profiles in a segment',
-						action: 'Get profiles in a segment',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Flow operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['flow'] } },
-				options: [
-					{ name: 'Get', value: 'get', description: 'Get a flow by ID', action: 'Get a flow' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple flows',
-						action: 'Get many flows',
-					},
-					{
-						name: 'Update Status',
-						value: 'updateStatus',
-						description: 'Update flow status',
-						action: 'Update flow status',
-					},
-				],
-				default: 'get',
-			},
-
-			// Template operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['template'] } },
-				options: [
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get a template by ID',
-						action: 'Get a template',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple templates',
-						action: 'Get many templates',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Coupon operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['coupon'] } },
-				options: [
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new coupon',
-						action: 'Create a coupon',
-					},
-					{
-						name: 'Delete',
-						value: 'delete',
-						description: 'Delete a coupon',
-						action: 'Delete a coupon',
-					},
-					{ name: 'Get', value: 'get', description: 'Get a coupon by ID', action: 'Get a coupon' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple coupons',
-						action: 'Get many coupons',
-					},
-					{
-						name: 'Update',
-						value: 'update',
-						description: 'Update a coupon',
-						action: 'Update a coupon',
-					},
-				],
-				default: 'get',
-			},
-
-			// Coupon Code operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['couponCode'] } },
-				options: [
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new coupon code',
-						action: 'Create a coupon code',
-					},
-					{
-						name: 'Delete',
-						value: 'delete',
-						description: 'Delete a coupon code',
-						action: 'Delete a coupon code',
-					},
-					{
-						name: 'Get',
-						value: 'get',
-						description: 'Get a coupon code by ID',
-						action: 'Get a coupon code',
-					},
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple coupon codes',
-						action: 'Get many coupon codes',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Form operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['form'] } },
-				options: [
-					{ name: 'Get', value: 'get', description: 'Get a form by ID', action: 'Get a form' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple forms',
-						action: 'Get many forms',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Review operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['review'] } },
-				options: [
-					{ name: 'Get', value: 'get', description: 'Get a review by ID', action: 'Get a review' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple reviews',
-						action: 'Get many reviews',
-					},
-					{
-						name: 'Update',
-						value: 'update',
-						description: 'Update a review (approve/reject)',
-						action: 'Update a review',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Image operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['image'] } },
-				options: [
-					{ name: 'Get', value: 'get', description: 'Get an image by ID', action: 'Get an image' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple images',
-						action: 'Get many images',
-					},
-					{
-						name: 'Upload',
-						value: 'upload',
-						description: 'Upload an image',
-						action: 'Upload an image',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Metric operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['metric'] } },
-				options: [
-					{ name: 'Get', value: 'get', description: 'Get a metric by ID', action: 'Get a metric' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple metrics',
-						action: 'Get many metrics',
-					},
-					{
-						name: 'Query Aggregates',
-						value: 'queryAggregates',
-						description: 'Query metric aggregates for reporting',
-						action: 'Query metric aggregates',
-					},
-				],
-				default: 'getMany',
-			},
-
-			// Tag operations
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: { show: { resource: ['tag'] } },
-				options: [
-					{
-						name: 'Create',
-						value: 'create',
-						description: 'Create a new tag',
-						action: 'Create a tag',
-					},
-					{ name: 'Delete', value: 'delete', description: 'Delete a tag', action: 'Delete a tag' },
-					{ name: 'Get', value: 'get', description: 'Get a tag by ID', action: 'Get a tag' },
-					{
-						name: 'Get Many',
-						value: 'getMany',
-						description: 'Get multiple tags',
-						action: 'Get many tags',
-					},
-					{ name: 'Update', value: 'update', description: 'Update a tag', action: 'Update a tag' },
-				],
-				default: 'getMany',
-			},
-
-			// Common fields
+			// Common ID fields - with resource and operation scoping
 			getIdProperty('Resource'),
-			getProfileIdProperty(false),
-			getListIdProperty(false),
-			getCampaignIdProperty(false),
-			getSegmentIdProperty(false),
-			getEventIdProperty(false),
-			getFlowIdProperty(false),
-			getTemplateIdProperty(false),
-			getCouponIdProperty(false),
-			getImageIdProperty(false),
-			getMetricIdProperty(false),
 
-			// Profile fields
-			getEmailProperty(false),
-			getFirstNameProperty(false),
-			getLastNameProperty(false),
-			getPhoneNumberProperty(false),
-			getPropertiesProperty(),
+			// Profile ID - for profile, list, segment operations that need it
+			getProfileIdProperty(
+				false,
+				['profile', 'list', 'segment'],
+				[
+					'get',
+					'update',
+					'getProfiles',
+					'addProfiles',
+					'removeProfiles',
+					'subscribe',
+					'suppress',
+					'unsuppress',
+					'unsubscribe',
+				],
+			),
 
-			// Pagination
-			getReturnAllProperty(),
-			getLimitProperty(),
-			getFilterProperty(),
+			// List ID - for list and profile operations
+			getListIdProperty(
+				false,
+				['list', 'profile'],
+				['get', 'update', 'addProfiles', 'removeProfiles', 'subscribe', 'unsubscribe'],
+			),
+
+			// Campaign ID - for campaign operations
+			getCampaignIdProperty(false, ['campaign'], ['get', 'update', 'delete', 'clone', 'send']),
+
+			// Segment ID - for segment operations
+			getSegmentIdProperty(false, ['segment'], ['get', 'getProfiles']),
+
+			// Event ID - for event operations
+			getEventIdProperty(false, ['event'], ['get']),
+
+			// Flow ID - for flow operations
+			getFlowIdProperty(false, ['flow'], ['get', 'updateStatus']),
+
+			// Template ID - for template and campaign message operations
+			getTemplateIdProperty(false, ['template', 'campaignMessage'], ['get', 'assignTemplate']),
+
+			// Coupon ID - for coupon and coupon code operations
+			getCouponIdProperty(false, ['coupon', 'couponCode'], ['get', 'update', 'create']),
+
+			// Image ID - for image operations
+			getImageIdProperty(false, ['image'], ['get']),
+
+			// Metric ID - for metric operations
+			getMetricIdProperty(
+				false,
+				['metric', 'customMetric', 'mappedMetric'],
+				['get', 'queryAggregates'],
+			),
+
+			// Profile-specific fields - only for profile create/update
+			{
+				...getEmailProperty(),
+				displayOptions: {
+					show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+				},
+			},
+			{
+				...getFirstNameProperty(),
+				displayOptions: {
+					show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+				},
+			},
+			{
+				...getLastNameProperty(),
+				displayOptions: {
+					show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+				},
+			},
+			{
+				...getPhoneNumberProperty(),
+				displayOptions: { show: { resource: ['profile'], operation: ['create'] } },
+			},
+			{
+				...getPropertiesProperty(),
+				displayOptions: {
+					show: { resource: ['profile'], operation: ['create', 'createOrUpdate', 'update'] },
+				},
+			},
+
+			// Pagination fields - only for list/get many operations
+			{
+				...getReturnAllProperty(),
+				displayOptions: {
+					show: {
+						resource: [
+							'profile',
+							'list',
+							'campaign',
+							'event',
+							'segment',
+							'flow',
+							'template',
+							'coupon',
+							'couponCode',
+							'form',
+							'review',
+							'image',
+							'metric',
+							'tag',
+							'account',
+							'customMetric',
+							'flowAction',
+							'flowMessage',
+							'formVersion',
+							'mappedMetric',
+						],
+						operation: ['getMany'],
+					},
+				},
+			},
+			{
+				...getLimitProperty(),
+				displayOptions: {
+					show: {
+						resource: [
+							'profile',
+							'list',
+							'campaign',
+							'event',
+							'segment',
+							'flow',
+							'template',
+							'coupon',
+							'couponCode',
+							'form',
+							'review',
+							'image',
+							'metric',
+							'tag',
+							'account',
+							'customMetric',
+							'flowAction',
+							'flowMessage',
+							'formVersion',
+							'mappedMetric',
+						],
+						operation: ['getMany'],
+					},
+				},
+			},
+			{
+				...getFilterProperty(),
+				displayOptions: { show: { resource: ['profile', 'event'], operation: ['getMany'] } },
+			},
 
 			// List fields
 			{
@@ -625,7 +304,7 @@ export class KlaviyoApi implements INodeType {
 				type: 'string',
 				default: '',
 				description: 'Name of the campaign',
-				displayOptions: { show: { resource: ['campaign'], operation: ['create'] } },
+				displayOptions: { show: { resource: ['campaign'], operation: ['create', 'update'] } },
 			},
 
 			// Event fields
@@ -662,26 +341,6 @@ export class KlaviyoApi implements INodeType {
 				displayOptions: { show: { resource: ['flow'], operation: ['updateStatus'] } },
 			},
 
-			// Campaign fields
-			{
-				displayName: 'Campaign Name',
-				name: 'campaignName',
-				type: 'string',
-				default: '',
-				description: 'The name of the campaign',
-				displayOptions: { show: { resource: ['campaign'], operation: ['create', 'update'] } },
-			},
-
-			// List fields
-			{
-				displayName: 'List Name',
-				name: 'listName',
-				type: 'string',
-				default: '',
-				description: 'The name of the list',
-				displayOptions: { show: { resource: ['list'], operation: ['create', 'update'] } },
-			},
-
 			// Tag fields
 			{
 				displayName: 'Tag Name',
@@ -710,6 +369,16 @@ export class KlaviyoApi implements INodeType {
 				displayOptions: { show: { resource: ['couponCode'], operation: ['create'] } },
 			},
 
+			// Custom Metric fields
+			{
+				displayName: 'Metric Name',
+				name: 'customMetricName',
+				type: 'string',
+				default: '',
+				description: 'The name of the custom metric',
+				displayOptions: { show: { resource: ['customMetric'], operation: ['create'] } },
+			},
+
 			// Form fields
 			{
 				displayName: 'Form ID',
@@ -731,7 +400,7 @@ export class KlaviyoApi implements INodeType {
 			},
 			{
 				displayName: 'Review Status',
-				name: 'status',
+				name: 'reviewStatus',
 				type: 'options',
 				options: [
 					{ name: 'Approved', value: 'approved' },
@@ -1545,7 +1214,7 @@ export class KlaviyoApi implements INodeType {
 		}
 		if (operation === 'update') {
 			const reviewId = this.getNodeParameter('reviewId', itemIndex) as string;
-			const status = this.getNodeParameter('status', itemIndex) as string;
+			const status = this.getNodeParameter('reviewStatus', itemIndex) as string;
 			const body = { data: { type: 'review', id: reviewId, attributes: { status } } };
 			return await klaviyoApiRequest.call(this, 'PATCH', `/api/reviews/${reviewId}`, body);
 		}
@@ -1745,7 +1414,7 @@ export class KlaviyoApi implements INodeType {
 		operation: string,
 	): Promise<IDataObject | IDataObject[]> {
 		if (operation === 'create') {
-			const metricName = this.getNodeParameter('name', itemIndex) as string;
+			const metricName = this.getNodeParameter('customMetricName', itemIndex) as string;
 			const body = {
 				data: {
 					type: 'custom-metric',
