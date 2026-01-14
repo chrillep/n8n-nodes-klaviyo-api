@@ -33,15 +33,15 @@ import { klaviyoApiRequest } from './shared/transport';
 
 export class KlaviyoApi implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'KlaviyoAPI',
+		displayName: 'Klaviyo API',
 		name: 'klaviyoApi',
 		icon: 'file:../../icons/klaviyo.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["resource"] + ": " + $parameter["operation"]}}',
-		description: 'Interact with KlaviyoApi marketing automation API',
+		description: 'Interact with Klaviyo API marketing automation API',
 		defaults: {
-			name: 'KlaviyoApi',
+			name: 'Klaviyo API',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
@@ -231,6 +231,30 @@ export class KlaviyoApi implements INodeType {
 				default: 'getMany',
 			},
 
+			// Mapped Metric operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['mappedMetric'] } },
+				options: [
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a mapped metric by ID',
+						action: 'Get a mapped metric',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple mapped metrics',
+						action: 'Get many mapped metrics',
+					},
+				],
+				default: 'getMany',
+			},
+
 			// Campaign operations
 			{
 				displayName: 'Operation',
@@ -283,6 +307,132 @@ export class KlaviyoApi implements INodeType {
 					},
 				],
 				default: 'get',
+			},
+
+			// Catalog Category operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['catalogCategories'] } },
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new catalog category',
+						action: 'Create a catalog category',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a catalog category',
+						action: 'Delete a catalog category',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a catalog category by ID',
+						action: 'Get a catalog category',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple catalog categories',
+						action: 'Get many catalog categories',
+					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a catalog category',
+						action: 'Update a catalog category',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Catalog Item operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['catalogItems'] } },
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new catalog item',
+						action: 'Create a catalog item',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a catalog item',
+						action: 'Delete a catalog item',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a catalog item by ID',
+						action: 'Get a catalog item',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple catalog items',
+						action: 'Get many catalog items',
+					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a catalog item',
+						action: 'Update a catalog item',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Catalog Variant operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['catalogVariants'] } },
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new catalog variant',
+						action: 'Create a catalog variant',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a catalog variant',
+						action: 'Delete a catalog variant',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a catalog variant by ID',
+						action: 'Get a catalog variant',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple catalog variants',
+						action: 'Get many catalog variants',
+					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a catalog variant',
+						action: 'Update a catalog variant',
+					},
+				],
+				default: 'getMany',
 			},
 
 			// Event operations
@@ -363,6 +513,54 @@ export class KlaviyoApi implements INodeType {
 					},
 				],
 				default: 'get',
+			},
+
+			// Flow Action operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['flowAction'] } },
+				options: [
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a flow action by ID',
+						action: 'Get a flow action',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple flow actions',
+						action: 'Get many flow actions',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Flow Message operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['flowMessage'] } },
+				options: [
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a flow message by ID',
+						action: 'Get a flow message',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple flow messages',
+						action: 'Get many flow messages',
+					},
+				],
+				default: 'getMany',
 			},
 
 			// Template operations
@@ -462,6 +660,36 @@ export class KlaviyoApi implements INodeType {
 				default: 'getMany',
 			},
 
+			// Custom Metric operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['customMetric'] } },
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new custom metric',
+						action: 'Create a custom metric',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a custom metric by ID',
+						action: 'Get a custom metric',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple custom metrics',
+						action: 'Get many custom metrics',
+					},
+				],
+				default: 'getMany',
+			},
+
 			// Form operations
 			{
 				displayName: 'Operation',
@@ -476,6 +704,30 @@ export class KlaviyoApi implements INodeType {
 						value: 'getMany',
 						description: 'Get multiple forms',
 						action: 'Get many forms',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Form Version operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['formVersion'] } },
+				options: [
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a form version by ID',
+						action: 'Get a form version',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple form versions',
+						action: 'Get many form versions',
 					},
 				],
 				default: 'getMany',
@@ -584,49 +836,120 @@ export class KlaviyoApi implements INodeType {
 			},
 
 			// Common fields
-			getIdProperty('Resource'),
-			getProfileIdProperty(false),
-			getListIdProperty(false),
-			getCampaignIdProperty(false),
-			getSegmentIdProperty(false),
-			getEventIdProperty(false),
-			getFlowIdProperty(false),
-			getTemplateIdProperty(false),
-			getCouponIdProperty(false),
-			getImageIdProperty(false),
-			getMetricIdProperty(false),
+			getIdProperty('Account', true, { show: { resource: ['account'], operation: ['get'] } }),
+			getIdProperty('Catalog Category', true, {
+				show: { resource: ['catalogCategories'], operation: ['get', 'update', 'delete'] },
+			}),
+			getIdProperty('Catalog Item', true, {
+				show: { resource: ['catalogItems'], operation: ['get', 'update', 'delete'] },
+			}),
+			getIdProperty('Catalog Variant', true, {
+				show: { resource: ['catalogVariants'], operation: ['get', 'update', 'delete'] },
+			}),
+			getIdProperty('Custom Metric', true, {
+				show: { resource: ['customMetric'], operation: ['get'] },
+			}),
+			getIdProperty('Flow Action', true, {
+				show: { resource: ['flowAction'], operation: ['get'] },
+			}),
+			getIdProperty('Flow Message', true, {
+				show: { resource: ['flowMessage'], operation: ['get'] },
+			}),
+			getIdProperty('Form Version', true, {
+				show: { resource: ['formVersion'], operation: ['get'] },
+			}),
+			getIdProperty('Mapped Metric', true, {
+				show: { resource: ['mappedMetric'], operation: ['get'] },
+			}),
+			getIdProperty('Tag', true, {
+				show: { resource: ['tag'], operation: ['get', 'update', 'delete'] },
+			}),
+
+			getProfileIdProperty(false, {
+				show: {
+					resource: ['profile'],
+					operation: ['get', 'update', 'createOrUpdate', 'getLists', 'getSegments', 'getEvents'],
+				},
+			}),
+			getProfileIdProperty(true, {
+				show: { resource: ['list'], operation: ['addProfiles', 'removeProfiles'] },
+			}),
+			getListIdProperty(true, {
+				show: { resource: ['list'], operation: ['get', 'update', 'delete', 'getProfiles'] },
+			}),
+			getListIdProperty(true, {
+				show: {
+					resource: ['list', 'profile'],
+					operation: ['addProfiles', 'removeProfiles', 'subscribe', 'unsubscribe'],
+				},
+			}),
+			getCampaignIdProperty(true, {
+				show: { resource: ['campaign'], operation: ['get', 'update', 'delete', 'send', 'clone'] },
+			}),
+			getSegmentIdProperty(true, {
+				show: { resource: ['segment'], operation: ['get', 'update', 'getProfiles'] },
+			}),
+			getEventIdProperty(true, { show: { resource: ['event'], operation: ['get'] } }),
+			getFlowIdProperty(true, { show: { resource: ['flow'], operation: ['get', 'updateStatus'] } }),
+			getTemplateIdProperty(true, {
+				show: { resource: ['template'], operation: ['get', 'update', 'delete', 'render'] },
+			}),
+			getCouponIdProperty(true, {
+				show: { resource: ['coupon'], operation: ['get', 'update', 'delete'] },
+			}),
+			getCouponIdProperty(true, { show: { resource: ['couponCode'], operation: ['create'] } }),
+			getImageIdProperty(true, { show: { resource: ['image'], operation: ['get', 'update'] } }),
+			getMetricIdProperty(true, {
+				show: { resource: ['metric'], operation: ['get', 'queryAggregates'] },
+			}),
 
 			// Profile fields
-			getEmailProperty(false),
-			getFirstNameProperty(false),
-			getLastNameProperty(false),
-			getPhoneNumberProperty(false),
-			getPropertiesProperty(),
+			getEmailProperty(false, {
+				show: {
+					resource: ['profile'],
+					operation: [
+						'get',
+						'createOrUpdate',
+						'subscribe',
+						'unsubscribe',
+						'suppress',
+						'unsuppress',
+					],
+				},
+			}),
+			getFirstNameProperty(false, {
+				show: { resource: ['profile'], operation: ['createOrUpdate'] },
+			}),
+			getLastNameProperty(false, {
+				show: { resource: ['profile'], operation: ['createOrUpdate'] },
+			}),
+			getPhoneNumberProperty(false, {
+				show: {
+					resource: ['profile'],
+					operation: ['createOrUpdate', 'subscribe', 'unsubscribe'],
+				},
+			}),
+			getPropertiesProperty({
+				show: { resource: ['profile'], operation: ['createOrUpdate'] },
+			}),
 
 			// Pagination
-			getReturnAllProperty(),
-			getLimitProperty(),
-			getFilterProperty(),
-
-			// List fields
-			{
-				displayName: 'List Name',
-				name: 'listName',
-				type: 'string',
-				default: '',
-				description: 'Name of the list',
-				displayOptions: { show: { resource: ['list'], operation: ['create', 'update'] } },
-			},
-
-			// Campaign fields
-			{
-				displayName: 'Campaign Name',
-				name: 'campaignName',
-				type: 'string',
-				default: '',
-				description: 'Name of the campaign',
-				displayOptions: { show: { resource: ['campaign'], operation: ['create'] } },
-			},
+			getReturnAllProperty({
+				show: {
+					operation: ['getMany', 'getProfiles', 'getLists', 'getSegments', 'getEvents'],
+				},
+			}),
+			getLimitProperty({
+				show: {
+					operation: ['getMany', 'getProfiles', 'getLists', 'getSegments', 'getEvents'],
+					returnAll: [false],
+				},
+			}),
+			getFilterProperty({
+				show: {
+					operation: ['getMany', 'getProfiles', 'getLists', 'getSegments', 'getEvents'],
+				},
+			}),
 
 			// Event fields
 			{
@@ -690,6 +1013,19 @@ export class KlaviyoApi implements INodeType {
 				default: '',
 				description: 'The name of the tag',
 				displayOptions: { show: { resource: ['tag'], operation: ['create', 'update'] } },
+			},
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The name of the resource',
+				displayOptions: {
+					show: {
+						resource: ['catalogCategories', 'catalogItems', 'catalogVariants', 'customMetric'],
+						operation: ['create', 'update'],
+					},
+				},
 			},
 
 			// Coupon Code fields
