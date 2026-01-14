@@ -62,12 +62,15 @@ export class KlaviyoApi implements INodeType {
 					{ name: 'Account', value: 'account' },
 					{ name: 'Campaign', value: 'campaign' },
 					{ name: 'Coupon', value: 'coupon' },
+					{ name: 'Coupon Code', value: 'couponCode' },
 					{ name: 'Event', value: 'event' },
 					{ name: 'Flow', value: 'flow' },
+					{ name: 'Form', value: 'form' },
 					{ name: 'Image', value: 'image' },
 					{ name: 'List', value: 'list' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Profile', value: 'profile' },
+					{ name: 'Review', value: 'review' },
 					{ name: 'Segment', value: 'segment' },
 					{ name: 'Tag', value: 'tag' },
 					{ name: 'Template', value: 'template' },
@@ -132,6 +135,30 @@ export class KlaviyoApi implements INodeType {
 						action: 'Get many profiles',
 					},
 					{
+						name: 'Subscribe',
+						value: 'subscribe',
+						description: 'Subscribe profiles to a list',
+						action: 'Subscribe profiles to a list',
+					},
+					{
+						name: 'Suppress',
+						value: 'suppress',
+						description: 'Suppress profiles from email marketing',
+						action: 'Suppress profiles',
+					},
+					{
+						name: 'Unsubscribe',
+						value: 'unsubscribe',
+						description: 'Unsubscribe profiles from marketing',
+						action: 'Unsubscribe profiles',
+					},
+					{
+						name: 'Unsuppress',
+						value: 'unsuppress',
+						description: 'Unsuppress profiles',
+						action: 'Unsuppress profiles',
+					},
+					{
 						name: 'Update',
 						value: 'update',
 						description: 'Update a profile',
@@ -149,6 +176,12 @@ export class KlaviyoApi implements INodeType {
 				noDataExpression: true,
 				displayOptions: { show: { resource: ['list'] } },
 				options: [
+					{
+						name: 'Add Profiles',
+						value: 'addProfiles',
+						description: 'Add profiles to a list',
+						action: 'Add profiles to a list',
+					},
 					{
 						name: 'Create',
 						value: 'create',
@@ -175,6 +208,12 @@ export class KlaviyoApi implements INodeType {
 						action: 'Get profiles in a list',
 					},
 					{
+						name: 'Remove Profiles',
+						value: 'removeProfiles',
+						description: 'Remove profiles from a list',
+						action: 'Remove profiles from a list',
+					},
+					{
 						name: 'Update',
 						value: 'update',
 						description: 'Update a list',
@@ -193,6 +232,24 @@ export class KlaviyoApi implements INodeType {
 				displayOptions: { show: { resource: ['campaign'] } },
 				options: [
 					{
+						name: 'Clone',
+						value: 'clone',
+						description: 'Clone an existing campaign',
+						action: 'Clone a campaign',
+					},
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new campaign',
+						action: 'Create a campaign',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a campaign',
+						action: 'Delete a campaign',
+					},
+					{
 						name: 'Get',
 						value: 'get',
 						description: 'Get a campaign by ID',
@@ -209,6 +266,12 @@ export class KlaviyoApi implements INodeType {
 						value: 'send',
 						description: 'Send a campaign',
 						action: 'Send a campaign',
+					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a campaign',
+						action: 'Update a campaign',
 					},
 				],
 				default: 'get',
@@ -327,6 +390,12 @@ export class KlaviyoApi implements INodeType {
 				displayOptions: { show: { resource: ['coupon'] } },
 				options: [
 					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new coupon',
+						action: 'Create a coupon',
+					},
+					{
 						name: 'Delete',
 						value: 'delete',
 						description: 'Delete a coupon',
@@ -339,8 +408,94 @@ export class KlaviyoApi implements INodeType {
 						description: 'Get multiple coupons',
 						action: 'Get many coupons',
 					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a coupon',
+						action: 'Update a coupon',
+					},
 				],
 				default: 'get',
+			},
+
+			// Coupon Code operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['couponCode'] } },
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new coupon code',
+						action: 'Create a coupon code',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						description: 'Delete a coupon code',
+						action: 'Delete a coupon code',
+					},
+					{
+						name: 'Get',
+						value: 'get',
+						description: 'Get a coupon code by ID',
+						action: 'Get a coupon code',
+					},
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple coupon codes',
+						action: 'Get many coupon codes',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Form operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['form'] } },
+				options: [
+					{ name: 'Get', value: 'get', description: 'Get a form by ID', action: 'Get a form' },
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple forms',
+						action: 'Get many forms',
+					},
+				],
+				default: 'getMany',
+			},
+
+			// Review operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['review'] } },
+				options: [
+					{ name: 'Get', value: 'get', description: 'Get a review by ID', action: 'Get a review' },
+					{
+						name: 'Get Many',
+						value: 'getMany',
+						description: 'Get multiple reviews',
+						action: 'Get many reviews',
+					},
+					{
+						name: 'Update',
+						value: 'update',
+						description: 'Update a review (approve/reject)',
+						action: 'Update a review',
+					},
+				],
+				default: 'getMany',
 			},
 
 			// Image operations
@@ -357,6 +512,12 @@ export class KlaviyoApi implements INodeType {
 						value: 'getMany',
 						description: 'Get multiple images',
 						action: 'Get many images',
+					},
+					{
+						name: 'Upload',
+						value: 'upload',
+						description: 'Upload an image',
+						action: 'Upload an image',
 					},
 				],
 				default: 'getMany',
@@ -377,6 +538,12 @@ export class KlaviyoApi implements INodeType {
 						description: 'Get multiple metrics',
 						action: 'Get many metrics',
 					},
+					{
+						name: 'Query Aggregates',
+						value: 'queryAggregates',
+						description: 'Query metric aggregates for reporting',
+						action: 'Query metric aggregates',
+					},
 				],
 				default: 'getMany',
 			},
@@ -389,6 +556,13 @@ export class KlaviyoApi implements INodeType {
 				noDataExpression: true,
 				displayOptions: { show: { resource: ['tag'] } },
 				options: [
+					{
+						name: 'Create',
+						value: 'create',
+						description: 'Create a new tag',
+						action: 'Create a tag',
+					},
+					{ name: 'Delete', value: 'delete', description: 'Delete a tag', action: 'Delete a tag' },
 					{ name: 'Get', value: 'get', description: 'Get a tag by ID', action: 'Get a tag' },
 					{
 						name: 'Get Many',
@@ -396,6 +570,7 @@ export class KlaviyoApi implements INodeType {
 						description: 'Get multiple tags',
 						action: 'Get many tags',
 					},
+					{ name: 'Update', value: 'update', description: 'Update a tag', action: 'Update a tag' },
 				],
 				default: 'getMany',
 			},
@@ -478,6 +653,104 @@ export class KlaviyoApi implements INodeType {
 				description: 'Flow status',
 				displayOptions: { show: { resource: ['flow'], operation: ['updateStatus'] } },
 			},
+
+			// Campaign fields
+			{
+				displayName: 'Campaign Name',
+				name: 'campaignName',
+				type: 'string',
+				default: '',
+				description: 'The name of the campaign',
+				displayOptions: { show: { resource: ['campaign'], operation: ['create', 'update'] } },
+			},
+
+			// List fields
+			{
+				displayName: 'List Name',
+				name: 'listName',
+				type: 'string',
+				default: '',
+				description: 'The name of the list',
+				displayOptions: { show: { resource: ['list'], operation: ['create', 'update'] } },
+			},
+
+			// Tag fields
+			{
+				displayName: 'Tag Name',
+				name: 'tagName',
+				type: 'string',
+				default: '',
+				description: 'The name of the tag',
+				displayOptions: { show: { resource: ['tag'], operation: ['create', 'update'] } },
+			},
+
+			// Coupon Code fields
+			{
+				displayName: 'Coupon Code ID',
+				name: 'couponCodeId',
+				type: 'string',
+				default: '',
+				description: 'The unique ID of the coupon code',
+				displayOptions: { show: { resource: ['couponCode'], operation: ['get', 'delete'] } },
+			},
+			{
+				displayName: 'Code',
+				name: 'code',
+				type: 'string',
+				default: '',
+				description: 'The coupon code value',
+				displayOptions: { show: { resource: ['couponCode'], operation: ['create'] } },
+			},
+
+			// Form fields
+			{
+				displayName: 'Form ID',
+				name: 'formId',
+				type: 'string',
+				default: '',
+				description: 'The unique ID of the form',
+				displayOptions: { show: { resource: ['form'] } },
+			},
+
+			// Review fields
+			{
+				displayName: 'Review ID',
+				name: 'reviewId',
+				type: 'string',
+				default: '',
+				description: 'The unique ID of the review',
+				displayOptions: { show: { resource: ['review'] } },
+			},
+			{
+				displayName: 'Review Status',
+				name: 'status',
+				type: 'options',
+				options: [
+					{ name: 'Approved', value: 'approved' },
+					{ name: 'Rejected', value: 'rejected' },
+				],
+				default: 'approved',
+				description: 'Status to update the review to',
+				displayOptions: { show: { resource: ['review'], operation: ['update'] } },
+			},
+
+			// Image fields
+			{
+				displayName: 'Image Name',
+				name: 'imageName',
+				type: 'string',
+				default: '',
+				description: 'The name of the image',
+				displayOptions: { show: { resource: ['image'], operation: ['upload'] } },
+			},
+			{
+				displayName: 'Image Data',
+				name: 'imageData',
+				type: 'string',
+				default: '',
+				description: 'Base64 encoded image data',
+				displayOptions: { show: { resource: ['image'], operation: ['upload'] } },
+			},
 		],
 	};
 
@@ -537,6 +810,12 @@ export class KlaviyoApi implements INodeType {
 				return this.handleTemplate(itemIndex, operation);
 			case 'coupon':
 				return this.handleCoupon(itemIndex, operation);
+			case 'couponCode':
+				return this.handleCouponCode(itemIndex, operation);
+			case 'form':
+				return this.handleForm(itemIndex, operation);
+			case 'review':
+				return this.handleReview(itemIndex, operation);
 			case 'image':
 				return this.handleImage(itemIndex, operation);
 			case 'metric':
@@ -626,6 +905,94 @@ export class KlaviyoApi implements INodeType {
 			const body = { data: { type: 'profile', id: profileId, attributes } };
 			return await klaviyoApiRequest.call(this, 'PATCH', `/api/profiles/${profileId}`, body);
 		}
+		if (operation === 'subscribe') {
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const listId = this.getNodeParameter('listId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-subscription-bulk-create-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+					relationships: {
+						list: {
+							data: { type: 'list', id: listId },
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'POST',
+				'/api/profile-subscription-bulk-create-jobs',
+				body,
+			);
+		}
+		if (operation === 'suppress') {
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-suppression-bulk-create-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'POST',
+				'/api/profile-suppression-bulk-create-jobs',
+				body,
+			);
+		}
+		if (operation === 'unsuppress') {
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-unsuppression-bulk-create-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'POST',
+				'/api/profile-unsuppression-bulk-create-jobs',
+				body,
+			);
+		}
+		if (operation === 'unsubscribe') {
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const listId = this.getNodeParameter('listId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-unsubscription-bulk-create-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+					relationships: {
+						list: {
+							data: { type: 'list', id: listId },
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(
+				this,
+				'POST',
+				'/api/profile-unsubscription-bulk-create-jobs',
+				body,
+			);
+		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
 
@@ -634,6 +1001,26 @@ export class KlaviyoApi implements INodeType {
 		itemIndex: number,
 		operation: string,
 	): Promise<IDataObject | IDataObject[] | null> {
+		if (operation === 'addProfiles') {
+			const listId = this.getNodeParameter('listId', itemIndex) as string;
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-list-bulk-create-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+					relationships: {
+						list: {
+							data: { type: 'list', id: listId },
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/profile-list-bulk-create-jobs', body);
+		}
 		if (operation === 'get') {
 			const listId = this.getNodeParameter('listId', itemIndex) as string;
 			return await klaviyoApiRequest.call(this, 'GET', `/api/lists/${listId}`);
@@ -681,6 +1068,26 @@ export class KlaviyoApi implements INodeType {
 			);
 			return (response as IDataObject).data as IDataObject[];
 		}
+		if (operation === 'removeProfiles') {
+			const listId = this.getNodeParameter('listId', itemIndex) as string;
+			const profileId = this.getNodeParameter('profileId', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'profile-list-bulk-delete-job',
+					attributes: {
+						profiles: {
+							data: [{ type: 'profile', id: profileId }],
+						},
+					},
+					relationships: {
+						list: {
+							data: { type: 'list', id: listId },
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/profile-list-bulk-delete-jobs', body);
+		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
 
@@ -689,6 +1096,26 @@ export class KlaviyoApi implements INodeType {
 		itemIndex: number,
 		operation: string,
 	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'clone') {
+			const campaignId = this.getNodeParameter('campaignId', itemIndex) as string;
+			const body = { data: { type: 'campaign-clone-job' } };
+			return await klaviyoApiRequest.call(this, 'POST', `/api/campaigns/${campaignId}/clone`, body);
+		}
+		if (operation === 'create') {
+			const campaignName = this.getNodeParameter('campaignName', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'campaign',
+					attributes: { name: campaignName },
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/campaigns', body);
+		}
+		if (operation === 'delete') {
+			const campaignId = this.getNodeParameter('campaignId', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/campaigns/${campaignId}`);
+			return {};
+		}
 		if (operation === 'get') {
 			const campaignId = this.getNodeParameter('campaignId', itemIndex) as string;
 			return await klaviyoApiRequest.call(this, 'GET', `/api/campaigns/${campaignId}`);
@@ -707,6 +1134,18 @@ export class KlaviyoApi implements INodeType {
 			const campaignId = this.getNodeParameter('campaignId', itemIndex) as string;
 			const body = { data: { type: 'campaign-send-job' } };
 			return await klaviyoApiRequest.call(this, 'POST', `/api/campaigns/${campaignId}/send`, body);
+		}
+		if (operation === 'update') {
+			const campaignId = this.getNodeParameter('campaignId', itemIndex) as string;
+			const campaignName = this.getNodeParameter('campaignName', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'campaign',
+					id: campaignId,
+					attributes: { name: campaignName },
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'PATCH', `/api/campaigns/${campaignId}`, body);
 		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
@@ -896,6 +1335,20 @@ export class KlaviyoApi implements INodeType {
 			const response = await klaviyoApiRequest.call(this, 'GET', '/api/images', undefined, qs);
 			return (response as IDataObject).data as IDataObject[];
 		}
+		if (operation === 'upload') {
+			const imageName = this.getNodeParameter('imageName', itemIndex) as string;
+			const imageData = this.getNodeParameter('imageData', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'image',
+					attributes: {
+						name: imageName,
+						image: imageData,
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/images', body);
+		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
 
@@ -918,6 +1371,23 @@ export class KlaviyoApi implements INodeType {
 			const response = await klaviyoApiRequest.call(this, 'GET', '/api/metrics', undefined, qs);
 			return (response as IDataObject).data as IDataObject[];
 		}
+		if (operation === 'queryAggregates') {
+			const metricId = this.getNodeParameter('metricId', itemIndex) as string;
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				`/api/metrics/${metricId}/query/aggregates`,
+				undefined,
+				qs,
+			);
+			return (Array.isArray(response) ? response : [response]) as IDataObject[];
+		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
 
@@ -926,6 +1396,16 @@ export class KlaviyoApi implements INodeType {
 		itemIndex: number,
 		operation: string,
 	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const tagName = this.getNodeParameter('tagName', itemIndex) as string;
+			const body = { data: { type: 'tag', attributes: { name: tagName } } };
+			return await klaviyoApiRequest.call(this, 'POST', '/api/tags', body);
+		}
+		if (operation === 'delete') {
+			const tagId = this.getNodeParameter('id', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/tags/${tagId}`);
+			return {};
+		}
 		if (operation === 'get') {
 			const tagId = this.getNodeParameter('id', itemIndex) as string;
 			return await klaviyoApiRequest.call(this, 'GET', `/api/tags/${tagId}`);
@@ -939,6 +1419,111 @@ export class KlaviyoApi implements INodeType {
 
 			const response = await klaviyoApiRequest.call(this, 'GET', '/api/tags', undefined, qs);
 			return (response as IDataObject).data as IDataObject[];
+		}
+		if (operation === 'update') {
+			const tagId = this.getNodeParameter('id', itemIndex) as string;
+			const tagName = this.getNodeParameter('tagName', itemIndex) as string;
+			const body = { data: { type: 'tag', id: tagId, attributes: { name: tagName } } };
+			return await klaviyoApiRequest.call(this, 'PATCH', `/api/tags/${tagId}`, body);
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleCouponCode(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'create') {
+			const couponId = this.getNodeParameter('couponId', itemIndex) as string;
+			const code = this.getNodeParameter('code', itemIndex) as string;
+			const body = {
+				data: {
+					type: 'coupon-code',
+					attributes: { code },
+					relationships: {
+						coupon: {
+							data: { type: 'coupon', id: couponId },
+						},
+					},
+				},
+			};
+			return await klaviyoApiRequest.call(this, 'POST', '/api/coupon-codes', body);
+		}
+		if (operation === 'delete') {
+			const couponCodeId = this.getNodeParameter('couponCodeId', itemIndex) as string;
+			await klaviyoApiRequest.call(this, 'DELETE', `/api/coupon-codes/${couponCodeId}`);
+			return {};
+		}
+		if (operation === 'get') {
+			const couponCodeId = this.getNodeParameter('couponCodeId', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/coupon-codes/${couponCodeId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(
+				this,
+				'GET',
+				'/api/coupon-codes',
+				undefined,
+				qs,
+			);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleForm(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const formId = this.getNodeParameter('formId', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/forms/${formId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(this, 'GET', '/api/forms', undefined, qs);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+	}
+
+	private async handleReview(
+		this: IExecuteFunctions & KlaviyoApi,
+		itemIndex: number,
+		operation: string,
+	): Promise<IDataObject | IDataObject[]> {
+		if (operation === 'get') {
+			const reviewId = this.getNodeParameter('reviewId', itemIndex) as string;
+			return await klaviyoApiRequest.call(this, 'GET', `/api/reviews/${reviewId}`);
+		}
+		if (operation === 'getMany') {
+			const qs: IDataObject = {};
+			const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
+			const limit = this.getNodeParameter('limit', itemIndex) as number;
+
+			if (!returnAll) qs['page[size]'] = limit;
+
+			const response = await klaviyoApiRequest.call(this, 'GET', '/api/reviews', undefined, qs);
+			return (response as IDataObject).data as IDataObject[];
+		}
+		if (operation === 'update') {
+			const reviewId = this.getNodeParameter('reviewId', itemIndex) as string;
+			const status = this.getNodeParameter('status', itemIndex) as string;
+			const body = { data: { type: 'review', id: reviewId, attributes: { status } } };
+			return await klaviyoApiRequest.call(this, 'PATCH', `/api/reviews/${reviewId}`, body);
 		}
 		throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
 	}
